@@ -1,0 +1,104 @@
+<mxfile host="65bd71144e">
+    <diagram id="arquitectura-agente" name="Arquitectura del Agente">
+        <mxGraphModel dx="348" dy="563" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="900" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="title" value="Arquitectura del Agente de Triage (OpenAI Agents SDK)" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=22;fontStyle=1;fontColor=#1A237E;" parent="1" vertex="1">
+                    <mxGeometry x="40" y="20" width="1520" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="user" value="&lt;b&gt;Paciente&lt;/b&gt;&#xa;(síntomas en texto)" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;fontSize=13;fillColor=#E3F2FD;strokeColor=#1976D2;" parent="1" vertex="1">
+                    <mxGeometry x="60" y="380" width="60" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="input" value="&lt;b&gt;Input&lt;/b&gt;&#xa;sintomas: str" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF3E0;strokeColor=#F57C00;fontSize=13;fontStyle=0;" parent="1" vertex="1">
+                    <mxGeometry x="180" y="390" width="140" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="guardrail" value="&lt;b&gt;Safety Guardrail&lt;/b&gt;&#xa;(InputGuardrail)&#xa;&#xa;Rechaza:&#xa;• Diagnóstico&#xa;• Recetas&#xa;• Interpretar labs" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFEBEE;strokeColor=#C62828;fontSize=12;align=left;spacingLeft=10;" parent="1" vertex="1">
+                    <mxGeometry x="370" y="350" width="180" height="140" as="geometry"/>
+                </mxCell>
+                <mxCell id="guardrail_tripwire" value="tripwire_triggered=True&#xa;→ BLOQUEAR" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontColor=#C62828;fontStyle=2;" parent="1" vertex="1">
+                    <mxGeometry x="370" y="500" width="180" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="agent_box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E8F5E9;strokeColor=#2E7D32;strokeWidth=2;dashed=0;" parent="1" vertex="1">
+                    <mxGeometry x="600" y="120" width="500" height="560" as="geometry"/>
+                </mxCell>
+                <mxCell id="agent_title" value="&lt;b&gt;Triage Agent (loop ReAct)&lt;/b&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=16;fontStyle=1;fontColor=#2E7D32;" parent="1" vertex="1">
+                    <mxGeometry x="600" y="130" width="500" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="llm" value="&lt;b&gt;LLM&lt;/b&gt;&#xa;gpt-4o-mini&#xa;&#xa;System Instructions:&#xa;protocolo Manchester&#xa;ROJO / AMARILLO / VERDE" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#C8E6C9;strokeColor=#2E7D32;fontSize=12;align=center;" parent="1" vertex="1">
+                    <mxGeometry x="640" y="180" width="200" height="130" as="geometry"/>
+                </mxCell>
+                <mxCell id="decision" value="¿Llamar tool?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#FFF9C4;strokeColor=#F9A825;fontSize=12;" parent="1" vertex="1">
+                    <mxGeometry x="680" y="340" width="120" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="tools_box" value="&lt;b&gt;Tools&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#2E7D32;fontSize=13;align=center;verticalAlign=top;spacingTop=5;" parent="1" vertex="1">
+                    <mxGeometry x="870" y="180" width="200" height="380" as="geometry"/>
+                </mxCell>
+                <mxCell id="t1" value="&lt;b&gt;consultar_protocolo_minsa&lt;/b&gt;&#xa;(dolor_toracico, acv, ...)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F1F8E9;strokeColor=#558B2F;fontSize=11;" parent="1" vertex="1">
+                    <mxGeometry x="885" y="215" width="170" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="t2" value="&lt;b&gt;buscar_hospital_cercano&lt;/b&gt;&#xa;(distrito, nivel_triage)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F1F8E9;strokeColor=#558B2F;fontSize=11;" parent="1" vertex="1">
+                    <mxGeometry x="885" y="290" width="170" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="t3" value="&lt;b&gt;registrar_caso_auditoria&lt;/b&gt;&#xa;(nivel, razón)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F1F8E9;strokeColor=#558B2F;fontSize=11;" parent="1" vertex="1">
+                    <mxGeometry x="885" y="365" width="170" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="tools_note" value="El LLM decide CUÁL&#xa;llamar y CUÁNDO.&#xa;Este es el loop del agente." style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;fontStyle=2;fontColor=#558B2F;" parent="1" vertex="1">
+                    <mxGeometry x="885" y="450" width="170" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="final" value="&lt;b&gt;Final Response&lt;/b&gt;&#xa;(structured)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#C8E6C9;strokeColor=#2E7D32;fontSize=12;align=center;" parent="1" vertex="1">
+                    <mxGeometry x="680" y="580" width="160" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="pydantic" value="&lt;b&gt;Pydantic Schema&lt;/b&gt;&#xa;&#xa;TriageResult:&#xa;• nivel (ROJO/AMARILLO/VERDE)&#xa;• accion (5 enum)&#xa;• confianza (0-1)&#xa;• requiere_medico&#xa;• disclaimer (forzado)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E1F5FE;strokeColor=#0277BD;fontSize=12;align=left;spacingLeft=10;" parent="1" vertex="1">
+                    <mxGeometry x="1160" y="320" width="220" height="170" as="geometry"/>
+                </mxCell>
+                <mxCell id="output" value="&lt;b&gt;Salida al usuario&lt;/b&gt;&#xa;JSON estructurado&#xa;+ disclaimer oficial" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF3E0;strokeColor=#F57C00;fontSize=13;" parent="1" vertex="1">
+                    <mxGeometry x="1430" y="380" width="140" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="e1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=classic;endFill=1;strokeColor=#1976D2;strokeWidth=2;" parent="1" source="user" target="input" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=classic;endFill=1;strokeColor=#1976D2;strokeWidth=2;" parent="1" source="input" target="guardrail" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e3" value="OK" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=classic;endFill=1;strokeColor=#2E7D32;strokeWidth=2;fontSize=11;" parent="1" source="guardrail" target="llm" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=classic;endFill=1;strokeColor=#2E7D32;strokeWidth=2;" parent="1" source="llm" target="decision" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e5" value="SÍ" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=classic;endFill=1;strokeColor=#F9A825;strokeWidth=2;fontSize=11;fontStyle=1;" parent="1" source="decision" target="tools_box" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="870" y="375"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="e6" value="loop&#xa;(tool_result)" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=classic;endFill=1;strokeColor=#F9A825;strokeWidth=2;fontSize=10;dashed=1;" parent="1" source="tools_box" target="llm" edge="1">
+                    <mxGeometry x="-0.0345" y="20" relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="970" y="150"/>
+                            <mxPoint x="740" y="150"/>
+                        </Array>
+                        <mxPoint as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="e7" value="NO" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=classic;endFill=1;strokeColor=#2E7D32;strokeWidth=2;fontSize=11;fontStyle=1;" parent="1" source="decision" target="final" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e8" value="validate" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=classic;endFill=1;strokeColor=#0277BD;strokeWidth=2;fontSize=11;" parent="1" source="final" target="pydantic" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=classic;endFill=1;strokeColor=#F57C00;strokeWidth=2;" parent="1" source="pydantic" target="output" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="legend_title" value="&lt;b&gt;Principios aplicados&lt;/b&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=13;fontColor=#1A237E;" parent="1" vertex="1">
+                    <mxGeometry x="60" y="720" width="200" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="legend_items" value="• &lt;b&gt;Zero-hallucination:&lt;/b&gt; structured output (Pydantic) + disclaimer forzado post-LLM&#xa;• &lt;b&gt;Guardrails:&lt;/b&gt; safety check ANTES de llamar al agente principal&#xa;• &lt;b&gt;Tool use real:&lt;/b&gt; el LLM decide qué tool llamar (no hardcoded)&#xa;• &lt;b&gt;FinOps:&lt;/b&gt; gpt-4o-mini ($0.15/1M in · $0.60/1M out) → ~$0.0003 por triage&#xa;• &lt;b&gt;Escalamiento humano:&lt;/b&gt; confianza &lt; 0.85 → requiere_medico=True" style="text;html=1;strokeColor=none;fillColor=#F5F5F5;align=left;verticalAlign=top;whiteSpace=wrap;rounded=1;fontSize=12;spacingLeft=10;spacingTop=10;" parent="1" vertex="1">
+                    <mxGeometry x="60" y="750" width="1500" height="120" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>

@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Jack Aguilar — CEO Neuracode" />
+  <title>Agente IA Salud — Clase 90min</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="clase.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Agente IA Salud — Clase 90min</h1>
+<p class="subtitle">Clase 90 min · Código + Diapositivas</p>
+<p class="author">Jack Aguilar — CEO Neuracode</p>
+<p class="date">Abril 2026</p>
+</header>
+<h1 id="apertura-min-0-5">1. Apertura (min 0-5)</h1>
+<h2 id="objetivo-de-la-clase">Objetivo de la clase</h2>
+<blockquote>
+<p><strong>En 90 minutos van a construir un agente IA real, funcional, validable, que hace triage médico.</strong> No un ChatGPT wrapper. Un agente con tools, guardrails, structured output y FinOps.</p>
+</blockquote>
+<h2 id="qué-van-a-llevarse">Qué van a llevarse</h2>
+<ul>
+<li>Código Python corriendo con OpenAI Agents SDK (oficial, marzo 2025)</li>
+<li>Arquitectura: 1 agente + 1 guardrail + 3 tools + Pydantic</li>
+<li>Métricas reales de tokens, costo y accuracy</li>
+<li>Repo público como base para su propio producto</li>
+</ul>
+<h2 id="reglas-del-juego">Reglas del juego</h2>
+<ol type="1">
+<li>Cuestiona cada decisión (¿realmente lo necesitamos?)</li>
+<li>Elimina antes de agregar (no RAG, no fine-tuning, no frontend)</li>
+<li>Simplifica solo lo que sobrevivió</li>
+<li>Acelera con deadlines agresivos</li>
+<li>Automatiza solo al final, cuando el proceso manual está validado</li>
+</ol>
+<hr />
+<h1 id="el-problema-real-min-5-15">2. El problema real (min 5-15)</h1>
+<h2 id="datos-duros">Datos duros</h2>
+<table>
+<thead>
+<tr class="header">
+<th>Dato</th>
+<th>Fuente</th>
+<th>Magnitud</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Pacientes que van a emergencia y NO son emergencia</td>
+<td>OMS</td>
+<td>40-60%</td>
+</tr>
+<tr class="even">
+<td>Médicos por habitante en Perú</td>
+<td>MINSA</td>
+<td>1 / 800 (OMS recomienda 1/500)</td>
+</tr>
+<tr class="odd">
+<td>Espera promedio en emergencia pública Lima</td>
+<td>Defensoría</td>
+<td>4-8 horas</td>
+</tr>
+<tr class="even">
+<td>Costo consulta privada Lima</td>
+<td>Mercado</td>
+<td>S/120-200</td>
+</tr>
+<tr class="odd">
+<td>Costo enfermera triage (salario + carga)</td>
+<td>RRHH</td>
+<td>~S/50/hora</td>
+</tr>
+</tbody>
+</table>
+<h2 id="el-idiot-index">El Idiot Index</h2>
+<pre><code>Precio de mercado (consulta):  S/150  ≈  $40
+Costo real de un triage IA:     $0.00018
+Ratio:                          ~222,000x</code></pre>
+<p>Cuando un ratio precio/costo es absurdo, hay oportunidad de disrupción.</p>
+<h2 id="qué-no-estamos-haciendo">Qué NO estamos haciendo</h2>
+<ul>
+<li><strong>NO</strong> reemplazar al médico</li>
+<li><strong>NO</strong> dar diagnósticos</li>
+<li><strong>NO</strong> recetar medicamentos</li>
+</ul>
+<h2 id="qué-sí-estamos-haciendo">Qué SÍ estamos haciendo</h2>
+<ul>
+<li><strong>Triage</strong>: clasificar urgencia (ROJO/AMARILLO/VERDE)</li>
+<li><strong>Derivación</strong>: hospital cercano apropiado</li>
+<li><strong>Escalamiento humano</strong>: cuando hay duda, médico decide</li>
+</ul>
+<hr />
+<h1 id="mercado-y-negocio-min-15-25">3. Mercado y negocio (min 15-25)</h1>
+<h2 id="empresas-que-ya-validaron-el-mercado">Empresas que ya validaron el mercado</h2>
+<table>
+<thead>
+<tr class="header">
+<th>Empresa</th>
+<th>País</th>
+<th>Valor</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Ada Health</strong></td>
+<td>Alemania</td>
+<td>13M usuarios · Serie B $90M</td>
+</tr>
+<tr class="even">
+<td><strong>Babylon Health</strong></td>
+<td>UK</td>
+<td>Contrato NHS · IPO $4.2B (2021)</td>
+</tr>
+<tr class="odd">
+<td><strong>K Health</strong></td>
+<td>USA / Israel</td>
+<td>Partnership Mayo Clinic</td>
+</tr>
+<tr class="even">
+<td><strong>Buoy Health</strong></td>
+<td>USA</td>
+<td>Spin-off Harvard Medical</td>
+</tr>
+<tr class="odd">
+<td><strong>Infermedica</strong></td>
+<td>Polonia</td>
+<td>API B2B · Allianz, PZU</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Inversión acumulada global en triage IA:</strong> &gt;$500M USD</p>
+<h2 id="modelos-de-negocio-posibles">Modelos de negocio posibles</h2>
+<table>
+<thead>
+<tr class="header">
+<th>Modelo</th>
+<th>Precio</th>
+<th>Cliente objetivo</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>SaaS B2B clínicas/EPS</td>
+<td>S/2,000-10,000/mes por sede</td>
+<td>Clínicas medianas, EPS</td>
+</tr>
+<tr class="even">
+<td>API pay-per-call</td>
+<td>$0.05 por triage</td>
+<td>Startups health-tech</td>
+</tr>
+<tr class="odd">
+<td>White-label aseguradoras</td>
+<td>Contrato anual</td>
+<td>Pacífico, Rimac, MAPFRE</td>
+</tr>
+<tr class="even">
+<td>Comisión derivación</td>
+<td>5-10% por receta</td>
+<td>Inkafarma, MiFarma</td>
+</tr>
+</tbody>
+</table>
+<h2 id="unit-economics-ver-diagrama-03">Unit Economics (ver diagrama 03)</h2>
+<ul>
+<li>Costo real por triage: <strong>$0.00018</strong> (gpt-4o-mini)</li>
+<li>Precio sugerido: <strong>$0.05</strong></li>
+<li>Margen: <strong>99.6%</strong></li>
+<li>Break-even por cliente: ~200 triages/mes (≈ 7/día)</li>
+</ul>
+<h2 id="mercado-latinoamericano">Mercado latinoamericano</h2>
+<ul>
+<li>Digital health LatAm 2024: <strong>$13.8B</strong> (Statista)</li>
+<li>CAGR 2024-2030: <strong>19.8%</strong></li>
+<li>Penetración IA en health LatAm: &lt;5% (oportunidad grande)</li>
+</ul>
+<hr />
+<h1 id="qué-es-un-agente-vs-un-simple-llm-min-25-35">4. Qué es un Agente (vs un simple LLM) (min 25-35)</h1>
+<h2 id="diferencia-conceptual">Diferencia conceptual</h2>
+<table>
+<thead>
+<tr class="header">
+<th>Capacidad</th>
+<th>LLM wrapper</th>
+<th><strong>Agente real (este repo)</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Clasificar</td>
+<td>sí</td>
+<td>sí</td>
+</tr>
+<tr class="even">
+<td>Tool use (APIs, DB)</td>
+<td>no</td>
+<td><strong>sí</strong> (MINSA, hospitales, auditoría)</td>
+</tr>
+<tr class="odd">
+<td>Loop autónomo de decisión</td>
+<td>no</td>
+<td><strong>sí</strong> (el LLM decide qué tool llamar)</td>
+</tr>
+<tr class="even">
+<td>Guardrails</td>
+<td>manual</td>
+<td><strong>nativos</strong> (rechaza fuera de alcance)</td>
+</tr>
+<tr class="odd">
+<td>Structured output</td>
+<td>parcial</td>
+<td><strong>garantizado</strong> (Pydantic)</td>
+</tr>
+<tr class="even">
+<td>Tracing/FinOps</td>
+<td>manual</td>
+<td><strong>integrado</strong> (SDK)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="el-loop-del-agente-react">El loop del agente (ReAct)</h2>
+<pre><code>1. Percibir → recibe síntomas
+2. Decidir   → ¿llamo tool? ¿cuál?
+3. Actuar    → ejecuta tool (protocolo MINSA, hospital, auditoría)
+4. Observar  → lee resultado de la tool
+5. Repetir   → hasta tener respuesta final estructurada</code></pre>
+<p><strong>Ver diagrama 01 — Arquitectura del Agente</strong></p>
+<h2 id="stack-técnico">Stack técnico</h2>
+<ul>
+<li><strong>OpenAI Agents SDK</strong> (<code>openai-agents</code>, oficial, marzo 2025)</li>
+<li><strong>Python 3.10+</strong> con type hints</li>
+<li><strong>Pydantic 2</strong> para structured output</li>
+<li><strong>Rich</strong> para CLI bonito</li>
+<li><strong>pytest + pytest-asyncio</strong> para tests</li>
+</ul>
+<h2 id="qué-no-usamos-y-por-qué">Qué NO usamos (y por qué)</h2>
+<ul>
+<li><strong>LangChain / CrewAI / LlamaIndex</strong>: conflicto con SDK oficial, más abstracción de la necesaria</li>
+<li><strong>RAG / vector DB</strong>: protocolos MINSA son pocos y estables, no justifican embeddings</li>
+<li><strong>Fine-tuning</strong>: prompt + structured output es suficiente para accuracy objetivo</li>
+<li><strong>Frontend</strong>: la clase prioriza la lógica del agente; UI es trivial después</li>
+<li><strong>Memoria persistente</strong>: cada triage es independiente</li>
+</ul>
+<p>Primero: eliminar. Después, si falta, agregar con datos reales que lo justifiquen.</p>
+<hr />
+<h1 id="arquitectura-min-35-45">5. Arquitectura (min 35-45)</h1>
+<h2 id="flujo-de-alto-nivel">Flujo de alto nivel</h2>
+<p><strong>Ver diagrama 02 — Flujo de Triage</strong></p>
+<pre><code>Síntomas (texto)
+    ↓
+Safety Guardrail (¿es pedido válido?)
+    ↓ sí
+Triage Agent Loop (LLM + Tools)
+    ├─ consultar_protocolo_minsa
+    ├─ buscar_hospital_cercano
+    └─ registrar_caso_auditoria
+    ↓
+Pydantic Schema validation
+    ↓
+TriageResult (JSON estructurado)</code></pre>
+<h2 id="los-3-archivos-del-agente">Los 3 archivos del agente</h2>
+<pre><code>src/
+├── schemas.py   → Pydantic: TriageResult, Hospital, Protocolo (NO LLM)
+├── tools.py     → 3 funciones puras + wrapper @function_tool
+└── agent.py     → Safety guardrail + Triage agent + run_triage()</code></pre>
+<p>Más archivos = más complejidad. Si no es necesario, no va.</p>
+<h2 id="structured-output-triageresult">Structured Output (TriageResult)</h2>
+<div class="sourceCode" id="cb5"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> TriageResult(BaseModel):</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    nivel: NivelTriage           <span class="co"># ROJO / AMARILLO / VERDE</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    confianza: <span class="bu">float</span>             <span class="co"># 0.0 - 1.0</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    razonamiento: <span class="bu">str</span>            <span class="co"># explicación corta</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    accion_recomendada: AccionRecomendada</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    requiere_medico: <span class="bu">bool</span>        <span class="co"># True si confianza &lt; 0.85</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    signos_alarma: <span class="bu">list</span>[<span class="bu">str</span>]     <span class="co"># banderas rojas detectadas</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    hospital_sugerido: Hospital <span class="op">|</span> <span class="va">None</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    disclaimer: <span class="bu">str</span> <span class="op">=</span> DISCLAIMER_OFICIAL  <span class="co"># forzado post-LLM</span></span></code></pre></div>
+<p>El LLM <strong>no puede alucinar el formato</strong>: Pydantic valida o falla.</p>
+<h2 id="safety-guardrail-inputguardrail">Safety Guardrail (InputGuardrail)</h2>
+<p>Agente pequeño que evalúa el input ANTES de llamar al agente principal.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>Rechaza:</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="op">-</span> <span class="st">&quot;¿Qué enfermedad tengo?&quot;</span>        (diagnóstico)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="op">-</span> <span class="st">&quot;¿Qué medicamento tomo?&quot;</span>        (receta)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="op">-</span> <span class="st">&quot;Interpreta mis análisis&quot;</span>       (labs)</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="op">-</span> <span class="st">&quot;Consejo sobre dieta&quot;</span>           (fuera de alcance)</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>Acepta:</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>  <span class="op">-</span> Descripción de síntomas para clasificar urgencia</span></code></pre></div>
+<p>Si rechaza → <code>tripwire_triggered=True</code> → corta ejecución, ahorra tokens.</p>
+<hr />
+<h1 id="zero-hallucination-min-45-50">6. Zero-Hallucination (min 45-50)</h1>
+<p>Las 7 técnicas aplicadas (en orden de importancia):</p>
+<table>
+<colgroup>
+<col style="width: 16%" />
+<col style="width: 50%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Técnica</th>
+<th>Cómo</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td><strong>Structured output</strong></td>
+<td>Pydantic <code>TriageResult</code> obligatorio — el LLM no puede inventar formato</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td><strong>Protocolos oficiales</strong></td>
+<td>Tool <code>consultar_protocolo_minsa</code> con datos validados</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td><strong>Safety guardrail</strong></td>
+<td>Agente separado rechaza pedidos fuera de alcance</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td><strong>Escalamiento humano</strong></td>
+<td><code>requiere_medico=True</code> si confianza &lt; 0.85</td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td><strong>Disclaimer forzado</strong></td>
+<td>Se sobreescribe post-LLM con el default de Pydantic</td>
+</tr>
+<tr class="even">
+<td>6</td>
+<td><strong>Auditoría obligatoria</strong></td>
+<td>Tool <code>registrar_caso_auditoria</code> para compliance</td>
+</tr>
+<tr class="odd">
+<td>7</td>
+<td><strong>Lista blanca de acciones</strong></td>
+<td>Solo 5 acciones posibles (enum), no texto libre</td>
+</tr>
+</tbody>
+</table>
+<h2 id="principio-de-precaución">Principio de precaución</h2>
+<p>Ante duda entre dos niveles, el agente elige el MÁS URGENTE. Un falso positivo (mandar al hospital a alguien sano) es infinitamente mejor que un falso negativo (mandar a casa a alguien con ACV).</p>
+<hr />
+<h1 id="finops-min-50-55">7. FinOps (min 50-55)</h1>
+<h2 id="modelo-default-gpt-4o-mini-no-cambiar-sin-razón">Modelo default: gpt-4o-mini (NO cambiar sin razón)</h2>
+<table>
+<thead>
+<tr class="header">
+<th>Modelo</th>
+<th>Input/1M</th>
+<th>Output/1M</th>
+<th>Uso</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>gpt-4o-mini</strong></td>
+<td>$0.15</td>
+<td>$0.60</td>
+<td><strong>DEFAULT</strong></td>
+</tr>
+<tr class="even">
+<td>gpt-4o</td>
+<td>$2.50</td>
+<td>$10.00</td>
+<td>16x más caro</td>
+</tr>
+<tr class="odd">
+<td>o3-mini</td>
+<td>$1.10</td>
+<td>$4.40</td>
+<td>7x más caro</td>
+</tr>
+</tbody>
+</table>
+<h2 id="costo-desglosado-por-triage">Costo desglosado por triage</h2>
+<pre><code>Input tokens:    ~400 (system + síntomas + tool results)
+Output tokens:   ~200 (razonamiento + JSON)
+
+Costo = (400 × $0.15 + 200 × $0.60) / 1,000,000
+     = (60 + 120) / 1,000,000
+     = $0.00018</code></pre>
+<p>Menos de 2 centésimos de centavo por triage.</p>
+<h2 id="proyección-de-negocio-ver-diagrama-03">Proyección de negocio (ver diagrama 03)</h2>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: right;">Pacientes/día</th>
+<th>Costo/mes</th>
+<th>Ingreso/mes @$0.05</th>
+<th>Margen</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">100</td>
+<td>$0.54</td>
+<td>$150</td>
+<td>$149.46</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1,000</td>
+<td>$5.40</td>
+<td>$1,500</td>
+<td>$1,494.60</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">10,000</td>
+<td>$54</td>
+<td>$15,000</td>
+<td>$14,946</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">100,000</td>
+<td>$540</td>
+<td>$150,000</td>
+<td>$149,460</td>
+</tr>
+</tbody>
+</table>
+<p>Costo marginal cercano a cero. Escala sin contratar personal.</p>
+<h2 id="optimizaciones-aplicadas">Optimizaciones aplicadas</h2>
+<ul>
+<li><code>temperature=0.1</code> (no necesitamos creatividad)</li>
+<li><code>max_tokens</code> controlado (no output infinito)</li>
+<li>Guardrail rechaza inputs inválidos ANTES de llamar al agente principal (ahorra tokens)</li>
+<li>Tracing automático del SDK (ver tokens en tiempo real)</li>
+</ul>
+<hr />
+<h1 id="código-en-vivo-min-55-75">8. Código en vivo (min 55-75)</h1>
+<h2 id="setup">Setup</h2>
+<div class="sourceCode" id="cb8"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone https://github.com/jackthony/agente_salud_sdc</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> agente_salud_sdc</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install <span class="at">-r</span> requirements.txt</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> .env.example .env</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="co"># editar .env con OPENAI_API_KEY</span></span></code></pre></div>
+<h2 id="demo-1-un-caso-real">Demo 1: Un caso real</h2>
+<div class="sourceCode" id="cb9"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> cli.py</span></code></pre></div>
+<p>Input: <em>“Hombre 60 años, dolor opresivo en pecho con sudoración, irradia al brazo izquierdo, hace 15 min. Vive en San Isidro.”</em></p>
+<p>Output esperado:</p>
+<ul>
+<li>nivel: <strong>ROJO</strong></li>
+<li>acción: <strong>LLAMAR_AMBULANCIA</strong></li>
+<li>confianza: 0.9+</li>
+<li>hospital_sugerido: Clínica Ricardo Palma</li>
+<li>signos_alarma: [“dolor torácico irradiado”, “diaforesis”, “hombre &gt;50 años”]</li>
+</ul>
+<h2 id="demo-2-guardrail-en-acción">Demo 2: Guardrail en acción</h2>
+<p>Input: <em>“¿Qué medicamento tomo para la gripe? Dame la dosis.”</em></p>
+<p>Output esperado:</p>
+<ul>
+<li>bloqueado_por_guardrail: <strong>True</strong></li>
+<li>motivo_bloqueo: “El usuario solicita receta de medicamentos, fuera de alcance”</li>
+</ul>
+<h2 id="demo-3-suite-de-7-casos-con-métricas">Demo 3: Suite de 7 casos con métricas</h2>
+<div class="sourceCode" id="cb10"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> cli.py <span class="at">--casos</span></span></code></pre></div>
+<p>Muestra tabla con: ID, esperado, predicho, confianza, tokens, costo, latencia, acierto.</p>
+<p>Métricas esperadas en clase:</p>
+<ul>
+<li>Accuracy: 85-100% (casos son claros)</li>
+<li>Costo promedio: ~$0.0002/caso</li>
+<li>Latencia: 2-5 segundos</li>
+</ul>
+<h2 id="demo-4-reto-al-grupo">Demo 4: Reto al grupo</h2>
+<blockquote>
+<p><strong>“Intenten que se equivoque.”</strong></p>
+</blockquote>
+<p>Los alumnos dictan casos ambiguos. Mostrar:</p>
+<ol type="1">
+<li>Casos edge donde confianza baja → escalamiento automático</li>
+<li>Casos fuera de alcance → guardrail bloquea</li>
+<li>Cuánto costó la clase completa (usualmente &lt; $0.05)</li>
+</ol>
+<hr />
+<h1 id="tests-y-validación-min-75-82">9. Tests y validación (min 75-82)</h1>
+<h2 id="suite-de-tests">Suite de tests</h2>
+<div class="sourceCode" id="cb11"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Unitarios (rápidos, sin gastar tokens)</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="ex">pytest</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Integración (llama al LLM real, requiere OPENAI_API_KEY)</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="ex">pytest</span> <span class="at">-m</span> integration</span></code></pre></div>
+<p><strong>Resultado esperado:</strong> 33/33 passed</p>
+<h2 id="tipos-de-tests">Tipos de tests</h2>
+<table>
+<colgroup>
+<col style="width: 32%" />
+<col style="width: 42%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Archivo</th>
+<th>Qué valida</th>
+<th>Costo</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>test_schemas.py</td>
+<td>Pydantic validators, enum values</td>
+<td>$0</td>
+</tr>
+<tr class="even">
+<td>test_tools.py</td>
+<td>Pure functions (protocolo, hospital, auditoría)</td>
+<td>$0</td>
+</tr>
+<tr class="odd">
+<td>test_finops.py</td>
+<td>Cálculo de costo USD</td>
+<td>$0</td>
+</tr>
+<tr class="even">
+<td>test_agent_integration.py</td>
+<td>Agente real con guardrails, tools, disclaimer</td>
+<td>~$0.005</td>
+</tr>
+</tbody>
+</table>
+<h2 id="cobertura-objetivo-80">Cobertura objetivo: 80%+</h2>
+<p>TDD mandatory: escribir test primero, luego implementación.</p>
+<hr />
+<h1 id="cierre-min-82-90">10. Cierre (min 82-90)</h1>
+<h2 id="qué-acabamos-de-construir">Qué acabamos de construir</h2>
+<ul>
+<li><strong>Agente real</strong> (no LLM wrapper): tool use + guardrails + structured output</li>
+<li><strong>FinOps</strong>: centavos por triage, margen 99.6%</li>
+<li><strong>Zero-hallucination</strong>: 7 técnicas aplicadas en código</li>
+<li><strong>Validación</strong>: 33 tests, 80%+ cobertura</li>
+<li><strong>Producción-ready</strong>: falta validación clínica, no validación técnica</li>
+</ul>
+<h2 id="los-5-principios-que-se-aplicaron">Los 5 principios que se aplicaron</h2>
+<table>
+<thead>
+<tr class="header">
+<th>Principio</th>
+<th>Cómo se vio en clase</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Cuestionar</strong></td>
+<td>¿Necesitamos RAG? NO. ¿Fine-tuning? NO. ¿Frontend? NO.</td>
+</tr>
+<tr class="even">
+<td><strong>Eliminar</strong></td>
+<td>3 archivos .py, 1 notebook, 0 sobre-ingeniería</td>
+</tr>
+<tr class="odd">
+<td><strong>Simplificar</strong></td>
+<td>1 agente + 1 guardrail + 3 tools</td>
+</tr>
+<tr class="even">
+<td><strong>Acelerar</strong></td>
+<td>90 min → agente funcional con métricas</td>
+</tr>
+<tr class="odd">
+<td><strong>Automatizar al final</strong></td>
+<td>Primero validar con médicos reales, después escalar</td>
+</tr>
+</tbody>
+</table>
+<h2 id="próximos-pasos-si-quieren-llevarlo-a-producción">Próximos pasos si quieren llevarlo a producción</h2>
+<ol type="1">
+<li><strong>Validación clínica</strong> con 100-500 casos supervisados por médicos reales</li>
+<li><strong>Certificación DIGEMID / MINSA</strong> (triage ≠ diagnóstico, menos fricción)</li>
+<li><strong>Integración EMR</strong> de clínicas (HL7/FHIR)</li>
+<li><strong>Observabilidad</strong> (Langfuse, OpenTelemetry) para tracking de errores</li>
+<li><strong>Cultura de feedback loop</strong> con médicos de primera línea</li>
+</ol>
+<h2 id="qué-no-hacer">Qué NO hacer</h2>
+<ul>
+<li>NO ir a producción sin validación médica</li>
+<li>NO reemplazar personal clínico</li>
+<li>NO bypass al disclaimer ni al guardrail</li>
+<li>NO cambiar a gpt-4o “por si acaso”</li>
+<li>NO meter features que no validaste primero</li>
+</ul>
+<hr />
+<h1 id="apéndice-a-preguntas-frecuentes">Apéndice A: Preguntas frecuentes</h1>
+<p><strong>¿Por qué no usar GPT-4o?</strong> 16x más caro, no mejora accuracy en clasificación simple. FinOps gana.</p>
+<p><strong>¿Puede reemplazar al médico?</strong> NO. Es triage, no diagnóstico. Es filtro, no decisión final.</p>
+<p><strong>¿Qué pasa si se equivoca?</strong> Escalamiento automático si confianza &lt; 0.85, y siempre principio de precaución (elegir el nivel más urgente).</p>
+<p><strong>¿Regulación?</strong> Triage no es diagnóstico → menos fricción. Igual se valida con DIGEMID/MINSA antes de producción.</p>
+<p><strong>¿Cómo mejorar el agente?</strong> Fine-tuning con casos locales, RAG con protocolos hospitalarios, feedback loop con médicos. PERO: antes de eso, validar con datos reales.</p>
+<p><strong>¿Cuánto tarda montar esto en una clínica real?</strong> - Piloto (1 sede): 2-4 semanas - Validación clínica (100 casos): 1-2 meses - Certificación: 3-6 meses - Go-live: 6-12 meses total</p>
+<hr />
+<h1 id="apéndice-b-referencias">Apéndice B: Referencias</h1>
+<ul>
+<li>OpenAI Agents SDK docs: <a href="https://openai.github.io/openai-agents-python/" class="uri">https://openai.github.io/openai-agents-python/</a></li>
+<li>Manchester Triage System (protocolo): <a href="https://www.triagenet.net/" class="uri">https://www.triagenet.net/</a></li>
+<li>Ada Health business case: <a href="https://ada.com/company/" class="uri">https://ada.com/company/</a></li>
+<li>OMS — emergencias y triage: <a href="https://www.who.int/" class="uri">https://www.who.int/</a></li>
+<li>Repo de esta clase: <a href="https://github.com/jackthony/agente_salud_sdc" class="uri">https://github.com/jackthony/agente_salud_sdc</a></li>
+</ul>
+<hr />
+<h1 id="contacto">Contacto</h1>
+<p><strong>Jack Aguilar</strong> — CEO Neuracode</p>
+<ul>
+<li>Web: <a href="https://www.neuracode.dev/">neuracode.dev</a></li>
+<li>LinkedIn: <a href="https://www.linkedin.com/in/jackaguilarc/">linkedin.com/in/jackaguilarc</a></li>
+<li>TikTok: <span class="citation" data-cites="jack.de.neura.code">[@jack.de.neura.code]</span>(https://www.tiktok.com/<span class="citation" data-cites="jack.de.neura.code">@jack.de.neura.code</span>)</li>
+<li>Instagram: <span class="citation" data-cites="neuracode.dev">[@neuracode.dev]</span>(https://www.instagram.com/neuracode.dev/)</li>
+<li>WhatsApp: <a href="https://wa.me/51982859073">+51 982 859 073</a></li>
+<li>Email: jaaguilar@acity.com.pe</li>
+</ul>
+<hr />
+<p><strong>Licencia:</strong> MIT · <strong>Disclaimer:</strong> Material educativo. No usar en producción sin validación médica y aprobación regulatoria (DIGEMID / MINSA).</p>
+</body>
+</html>
