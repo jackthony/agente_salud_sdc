@@ -2,6 +2,8 @@
 
 > **Agente real** con OpenAI Agents SDK. Tool use + guardrails + structured output.
 > **Enfoque:** Minimalismo + FinOps + Zero-Hallucination.
+>
+> 🎓 **Clase dictada para [SDC Learning](https://www.sdclearning.com/)** · Docente: Jack Aguilar — CEO Neuracode
 
 ---
 
@@ -80,11 +82,25 @@ Guardrails: `max_tokens=300`, `temperature=0.1`, timeout 10s.
 - Python 3.10+
 - API key OpenAI
 
-### Instalación
+### Instalación (recomendado: venv aislado)
 ```bash
 git clone https://github.com/jackthony/agente_salud_sdc
 cd agente_salud_sdc
-pip install -r requirements.txt
+
+# Crear entorno virtual
+python -m venv .venv
+# Activar (Windows bash/git-bash):
+source .venv/Scripts/activate
+# Activar (Windows PowerShell):
+# .venv\Scripts\Activate.ps1
+# Activar (macOS/Linux):
+# source .venv/bin/activate
+
+# Instalar dependencias
+pip install -r requirements.txt       # core (para correr el agente)
+pip install -r requirements-dev.txt   # opcional: pytest + jupyter
+
+# Configurar API key
 cp .env.example .env
 # Editar .env con tu OPENAI_API_KEY
 ```

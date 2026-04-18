@@ -1,12 +1,14 @@
 ---
 title: "Agente IA para Salud — Triage de Síntomas"
-subtitle: "Clase 90 min · Código + Diapositivas"
+subtitle: "Clase 90 min · Dictada para SDC Learning"
 author: "Jack Aguilar — CEO Neuracode"
 date: "Abril 2026"
 geometry: margin=2cm
 fontsize: 11pt
 colorlinks: true
 ---
+
+> **Clase dictada para SDC Learning** · Docente: Jack Aguilar (Neuracode)
 
 # 1. Apertura (min 0-5)
 

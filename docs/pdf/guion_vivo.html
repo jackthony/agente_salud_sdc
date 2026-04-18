@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Jack Aguilar — CEO Neuracode" />
+  <title>Guion en vivo — SDC Learning</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="clase.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Guion en vivo — SDC Learning</h1>
+<p class="subtitle">Dictada para SDC Learning</p>
+<p class="author">Jack Aguilar — CEO Neuracode</p>
+<p class="date">Abril 2026</p>
+</header>
+<blockquote>
+<p>Este documento es el <strong>guión operativo</strong> que el docente lee durante la clase. Incluye: qué decir, qué ejecutar, qué mostrar en pantalla, qué preguntas hacer.</p>
+</blockquote>
+<hr />
+<h1 id="antes-de-empezar-checklist-5-min-antes">0. Antes de empezar (checklist 5 min antes)</h1>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Terminal 1 (operativa)</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> agente_salud_sdc</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="bu">source</span> .venv/Scripts/activate   <span class="co"># Windows bash</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># o .venv\Scripts\Activate.ps1  (PowerShell)</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># o source .venv/bin/activate   (Mac/Linux)</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Verificar que todo corre</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> <span class="at">-c</span> <span class="st">&quot;from src.agent import run_triage; print(&#39;OK&#39;)&quot;</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="ex">pytest</span> <span class="at">-q</span>  <span class="co"># debe decir: 33 passed</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="va">$OPENAI_API_KEY</span>  <span class="co"># no vacío</span></span></code></pre></div>
+<ul class="task-list">
+<li><input type="checkbox" disabled="" />
+VSCode abierto en <code>src/agent.py</code>, <code>src/tools.py</code>, <code>src/schemas.py</code> (3 pestañas)</li>
+<li><input type="checkbox" disabled="" />
+Terminal con venv activo</li>
+<li><input type="checkbox" disabled="" />
+PDFs de diagramas abiertos en background (<code>docs/pdf/*.pdf</code>)</li>
+<li><input type="checkbox" disabled="" />
+Repo GitHub abierto: <code>https://github.com/jackthony/agente_salud_sdc</code></li>
+<li><input type="checkbox" disabled="" />
+Monitor secundario con el PDF <code>clase_contenido.pdf</code> de apoyo</li>
+<li><input type="checkbox" disabled="" />
+Cronómetro visible</li>
+</ul>
+<hr />
+<h1 id="apertura-000-005-5-min">1. Apertura (0:00 – 0:05) — 5 min</h1>
+<h2 id="qué-decir">Qué decir</h2>
+<blockquote>
+<p>“Buenas. Soy Jack Aguilar, CEO de Neuracode. En los próximos 90 minutos <strong>NO</strong> vamos a hacer un ChatGPT wrapper. Vamos a hacer un <strong>agente real</strong>: con tools, guardrails, structured output, y FinOps. El código lo van a tener en su máquina corriendo antes de que termine la clase.”</p>
+</blockquote>
+<blockquote>
+<p>“La diferencia clave: un LLM wrapper responde texto. Un <strong>agente</strong> decide qué hacer, llama herramientas, observa resultados, y repite hasta tener una respuesta estructurada. Hoy lo van a ver.”</p>
+</blockquote>
+<h2 id="qué-mostrar">Qué mostrar</h2>
+<ol type="1">
+<li>Slide portada: “Agente IA Salud — Triage · Clase SDC Learning”</li>
+<li>Diagrama 01 (arquitectura) — 10 segundos de vista general, no explicar todavía</li>
+</ol>
+<h2 id="qué-preguntar-al-grupo">Qué preguntar al grupo</h2>
+<ul>
+<li>“¿Quiénes ya programaron con OpenAI API? ¿Quiénes nunca?” → calibrar ritmo</li>
+<li>“¿Qué es para ustedes un agente?” → anotar respuestas en pizarra, comparar al final</li>
+</ul>
+<hr />
+<h1 id="el-problema-005-015-10-min">2. El problema (0:05 – 0:15) — 10 min</h1>
+<h2 id="qué-decir-1">Qué decir</h2>
+<blockquote>
+<p>“Problema real: en Perú hay 1 médico cada 800 habitantes. OMS recomienda 1/500. Emergencias saturadas, 60% de visitas NO son emergencias. La enfermera de triage es cuello de botella.”</p>
+</blockquote>
+<blockquote>
+<p>“<strong>Idiot Index</strong>: consulta cuesta S/150 ≈ $40. Un triage IA cuesta <strong>$0.00018</strong>. Ratio ~222,000x. Cuando un ratio precio/costo es absurdo, hay oportunidad de disrupción.”</p>
+</blockquote>
+<h2 id="qué-mostrar-1">Qué mostrar</h2>
+<ul>
+<li>Foto de cola de emergencia (usar stock/buscar en vivo)</li>
+<li>Tabla de datos (README sección 1 o diagrama 03)</li>
+</ul>
+<h2 id="qué-no-decir">Qué NO decir</h2>
+<ul>
+<li>No prometer reemplazar al médico — el agente <strong>triage</strong>, no diagnostica</li>
+<li>No hablar aún de código</li>
+</ul>
+<hr />
+<h1 id="negocio-015-025-10-min">3. Negocio (0:15 – 0:25) — 10 min</h1>
+<h2 id="qué-decir-2">Qué decir</h2>
+<blockquote>
+<p>“Esto ya se hace. Ada Health: 13M usuarios, Serie B $90M. Babylon: contrato NHS, IPO $4.2B. K Health: partnership Mayo Clinic. El mercado ya validó que funciona.”</p>
+</blockquote>
+<blockquote>
+<p>“LatAm digital health: $13.8B en 2024, CAGR 19.8%. Penetración IA health &lt;5% en Perú. Oportunidad.”</p>
+</blockquote>
+<h2 id="qué-mostrar-2">Qué mostrar</h2>
+<ul>
+<li>Diagrama 03 (unit economics) <strong>pantalla completa</strong></li>
+<li>Señalar: costo $0.00018 · precio $0.05 · margen 99.6%</li>
+</ul>
+<h2 id="qué-preguntar">Qué preguntar</h2>
+<ul>
+<li>“¿Quién cobraría $0.05 por un triage? ¿A quién se lo venderían primero?”</li>
+<li>Respuesta esperada: EPS, aseguradoras, clínicas medianas, fintechs de salud</li>
+</ul>
+<hr />
+<h1 id="qué-es-un-agente-025-035-10-min">4. Qué es un agente (0:25 – 0:35) — 10 min</h1>
+<h2 id="qué-decir-3">Qué decir</h2>
+<blockquote>
+<p>“Un agente <strong>tiene un loop</strong>: percibe → decide → actúa → observa → repite. No es una llamada única al LLM.”</p>
+</blockquote>
+<blockquote>
+<p>“Nuestro agente <strong>decide</strong> si llamar al protocolo MINSA, si buscar hospital, cuándo parar. Eso es lo que lo hace agente y no un wrapper.”</p>
+</blockquote>
+<h2 id="qué-mostrar-3">Qué mostrar</h2>
+<ul>
+<li>Diagrama 01 (arquitectura) — ahora sí explicar cajas una por una</li>
+<li>Abrir <code>src/agent.py</code> y mostrar:
+<ul>
+<li>Línea ~90: <code>triage_agent = Agent(...)</code></li>
+<li>Línea ~96: <code>input_guardrails=[...]</code></li>
+</ul></li>
+</ul>
+<h2 id="código-en-vivo-sin-ejecutar-aún">Código en vivo (sin ejecutar aún)</h2>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">code</span> src/agent.py   <span class="co"># mostrar Agent + Runner + InputGuardrail</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">code</span> src/tools.py   <span class="co"># mostrar @function_tool</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="ex">code</span> src/schemas.py <span class="co"># mostrar TriageResult</span></span></code></pre></div>
+<blockquote>
+<p>“Tres archivos. Eso es el agente. Sin magia.”</p>
+</blockquote>
+<hr />
+<h1 id="arquitectura-zero-hallucination-035-045-10-min">5. Arquitectura + Zero-Hallucination (0:35 – 0:45) — 10 min</h1>
+<h2 id="qué-decir-4">Qué decir</h2>
+<blockquote>
+<p>“Zero-hallucination en 7 técnicas: 1. Structured output con Pydantic — el LLM <strong>no puede</strong> inventar formato 2. Protocolos oficiales via tool 3. Safety guardrail que rechaza fuera de alcance 4. Escalamiento humano si confianza &lt; 0.85 5. Disclaimer forzado post-LLM 6. Auditoría obligatoria 7. Lista blanca de acciones (enum de 5)”</p>
+</blockquote>
+<h2 id="qué-mostrar-4">Qué mostrar</h2>
+<ul>
+<li><code>src/schemas.py</code> → resaltar <code>TriageResult</code>, campos obligatorios, enums</li>
+<li><code>src/agent.py</code> → buscar con Ctrl+F “disclaimer_oficial” (mostrar que se fuerza)</li>
+</ul>
+<h2 id="código-a-resaltar-leer-en-voz-alta">Código a resaltar (leer en voz alta)</h2>
+<div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># src/agent.py (final de run_triage)</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>final: TriageResult <span class="op">=</span> run_result.final_output</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>disclaimer_oficial <span class="op">=</span> TriageResult.model_fields[<span class="st">&quot;disclaimer&quot;</span>].default</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> final.disclaimer <span class="op">!=</span> disclaimer_oficial:</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    final <span class="op">=</span> final.model_copy(update<span class="op">=</span>{<span class="st">&quot;disclaimer&quot;</span>: disclaimer_oficial})</span></code></pre></div>
+<blockquote>
+<p>“Esto es post-procesamiento: el LLM puede intentar escribir su propio disclaimer, pero Pydantic + esta línea garantizan que el texto oficial siempre aparece.”</p>
+</blockquote>
+<hr />
+<h1 id="demo-en-vivo-045-115-30-min-el-core-de-la-clase">6. Demo en vivo (0:45 – 1:15) — 30 min · EL CORE DE LA CLASE</h1>
+<h2 id="demo-1-caso-rojo-5-min">Demo 1 — Caso ROJO (5 min)</h2>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> cli.py</span></code></pre></div>
+<p><strong>Cuando pida input, pegar:</strong></p>
+<blockquote>
+<p>Hombre 60 años, dolor opresivo en pecho con sudoración, irradia al brazo izquierdo, hace 15 min. Vive en San Isidro.</p>
+</blockquote>
+<p><strong>Salida esperada:</strong></p>
+<ul>
+<li><code>nivel: ROJO</code></li>
+<li><code>accion_recomendada: LLAMAR_AMBULANCIA</code></li>
+<li><code>confianza: 0.90+</code></li>
+<li><code>hospital_sugerido: Clínica Ricardo Palma</code> (o similar)</li>
+<li><code>signos_alarma: ["dolor torácico irradiado", "diaforesis", "hombre &gt;50"]</code></li>
+</ul>
+<p><strong>Qué señalar en pantalla:</strong></p>
+<ul>
+<li>Tokens gastados: ~600 → costo real en centavos de centavo</li>
+<li>Tiempo de respuesta: 2-4 segundos</li>
+<li>JSON estructurado, no texto libre</li>
+</ul>
+<h2 id="demo-2-caso-verde-3-min">Demo 2 — Caso VERDE (3 min)</h2>
+<p><strong>Input:</strong></p>
+<blockquote>
+<p>Tengo un resfriado con estornudos hace 2 días, sin fiebre, me siento cansado.</p>
+</blockquote>
+<p><strong>Salida esperada:</strong> <code>VERDE</code> → <code>AUTOCUIDADO</code> o <code>TELECONSULTA</code></p>
+<h2 id="demo-3-guardrail-bloqueando-3-min">Demo 3 — Guardrail bloqueando (3 min)</h2>
+<p><strong>Input:</strong></p>
+<blockquote>
+<p>¿Qué medicamento tomo para el dolor de cabeza? Dame la dosis.</p>
+</blockquote>
+<p><strong>Salida esperada:</strong></p>
+<ul>
+<li><code>bloqueado_por_guardrail: True</code></li>
+<li><code>motivo_bloqueo: "El usuario solicita receta de medicamentos..."</code></li>
+<li><strong>0 tokens gastados en el agente principal</strong> (el guardrail corta antes)</li>
+</ul>
+<blockquote>
+<p>“Esto ahorra plata: inputs inválidos no llegan al agente caro.”</p>
+</blockquote>
+<h2 id="demo-4-suite-completa-con-métricas-10-min">Demo 4 — Suite completa con métricas (10 min)</h2>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> cli.py <span class="at">--casos</span></span></code></pre></div>
+<p><strong>Mostrar:</strong></p>
+<ul>
+<li>Tabla con 7 casos, aciertos/errores</li>
+<li>Costo total de los 7 casos (&lt;$0.01)</li>
+<li>Accuracy esperada: 85-100%</li>
+</ul>
+<p><strong>Ir señalando caso por caso:</strong></p>
+<ul>
+<li>Casos donde baja confianza → <code>requiere_medico=True</code></li>
+<li>Casos ambiguos → agente eligió el más urgente (principio precaución)</li>
+</ul>
+<h2 id="demo-5-reto-al-grupo-9-min">Demo 5 — Reto al grupo (9 min)</h2>
+<blockquote>
+<p>“Ahora ustedes. Díctenme casos. Intenten que se equivoque.”</p>
+</blockquote>
+<ul>
+<li>Pedir 3-5 casos al grupo</li>
+<li>Ejecutar en vivo</li>
+<li>Si falla: celebrarlo, explicar por qué (es edge case, requiere médico)</li>
+<li>Si acierta: mostrar tokens/costo</li>
+</ul>
+<p><strong>Casos trampa que puedes sugerir si el grupo se traba:</strong></p>
+<ol type="1">
+<li>“Me duele la cabeza” (ambiguo → debería pedir más info o ir a AMARILLO)</li>
+<li>“Tengo dolor en el pecho pero creo que fue por cargar peso” (engañoso → agente debe mantener ROJO por precaución)</li>
+<li>“Mi hijo de 2 meses tiene fiebre de 39°” (pediátrico → ROJO o AMARILLO alto)</li>
+</ol>
+<hr />
+<h1 id="tests-y-validación-115-122-7-min">7. Tests y validación (1:15 – 1:22) — 7 min</h1>
+<h2 id="qué-decir-5">Qué decir</h2>
+<blockquote>
+<p>“Un agente sin tests es un agente roto. Tenemos 33 tests, 27 unitarios (gratis, no gastan tokens) y 6 de integración (con API real, cuestan ~1 centavo).”</p>
+</blockquote>
+<h2 id="ejecutar-en-vivo">Ejecutar en vivo</h2>
+<div class="sourceCode" id="cb6"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Unit tests: instantáneos, gratis</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="ex">pytest</span> tests/test_schemas.py tests/test_tools.py tests/test_finops.py <span class="at">-q</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Integración: llama al LLM real</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="ex">pytest</span> <span class="at">-m</span> integration <span class="at">-q</span></span></code></pre></div>
+<p><strong>Mostrar:</strong></p>
+<ul>
+<li>Velocidad de unit tests (&lt;2 segundos)</li>
+<li>Integración ~30 seg, muestra que el agente real responde correctamente</li>
+<li><code>pytest --cov=src</code> → cobertura 80%+</li>
+</ul>
+<h2 id="qué-resaltar">Qué resaltar</h2>
+<ul>
+<li><code>test_agent_integration.py::test_disclaimer_siempre_presente</code> — valida zero-hallucination</li>
+<li><code>test_tools.py::test_rojo_filtra_capacidad_baja</code> — valida que hospital se ajusta al nivel</li>
+</ul>
+<hr />
+<h1 id="finops-en-vivo-122-127-5-min">8. FinOps en vivo (1:22 – 1:27) — 5 min</h1>
+<h2 id="qué-decir-6">Qué decir</h2>
+<blockquote>
+<p>“¿Cuánto gastamos en toda la clase? Veamos.”</p>
+</blockquote>
+<div class="sourceCode" id="cb7"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># En el terminal Python interactivo</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> src.agent <span class="im">import</span> calcular_costo</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Sumar el usage de las demos anteriores (copiarlo de pantalla)</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>usage_total <span class="op">=</span> {<span class="st">&quot;input_tokens&quot;</span>: <span class="dv">3200</span>, <span class="st">&quot;output_tokens&quot;</span>: <span class="dv">1600</span>}</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&quot;Costo total clase: $</span><span class="sc">{</span>calcular_costo(usage_total)<span class="sc">:.6f}</span><span class="ss">&quot;</span>)</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Típicamente: $0.001-0.003</span></span></code></pre></div>
+<blockquote>
+<p>“Con gpt-4o sería 16x más caro: ~$0.02-0.05. gpt-4o-mini hace el trabajo bien — no paguen de más.”</p>
+</blockquote>
+<h2 id="qué-mostrar-5">Qué mostrar</h2>
+<ul>
+<li>Diagrama 03 proyección de escala</li>
+<li>Dashboard OpenAI (platform.openai.com/usage) si da tiempo</li>
+</ul>
+<hr />
+<h1 id="cierre-127-130-3-min">9. Cierre (1:27 – 1:30) — 3 min</h1>
+<h2 id="qué-decir-7">Qué decir</h2>
+<blockquote>
+<p>“En 90 minutos construimos: - Un agente real con OpenAI Agents SDK - 3 tools, 1 guardrail, structured output - 33 tests, 80%+ cobertura - Costo por triage: centavos de centavo - Margen teórico: 99.6%”</p>
+</blockquote>
+<blockquote>
+<p>“<strong>Lo que NO hicimos</strong> (y por qué): - RAG: protocolos son pocos y estables, no justifican vector DB - Fine-tuning: prompt + structured output basta - Frontend: trivial después, no es la clase - LangChain: conflicto con SDK oficial, más abstracción de la necesaria”</p>
+</blockquote>
+<blockquote>
+<p>“<strong>Próximo paso real</strong> si quieren ir a producción: validación clínica con 100+ casos supervisados por médicos. No automaticen antes de validar.”</p>
+</blockquote>
+<h2 id="cierre-emocional">Cierre emocional</h2>
+<blockquote>
+<p>“El repo es suyo. Fork, rómpanlo, mejórenlo. Si sacan un producto, me cuentan. Neuracode.dev si quieren hablar.”</p>
+</blockquote>
+<h2 id="preguntas">Preguntas</h2>
+<ul>
+<li>Reservar mínimo 5 min</li>
+<li>Preguntas esperadas están en <code>docs/clase_contenido.md</code> Apéndice A</li>
+</ul>
+<hr />
+<h1 id="backup-si-algo-falla">Backup — si algo falla</h1>
+<table>
+<colgroup>
+<col style="width: 46%" />
+<col style="width: 53%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Falla</th>
+<th>Plan B</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Sin internet</td>
+<td><code>pytest -q</code> (no usa API) · Mostrar código estático</td>
+</tr>
+<tr class="even">
+<td>OpenAI rate limit</td>
+<td>Mostrar casos pre-ejecutados en terminal recording</td>
+</tr>
+<tr class="odd">
+<td>VSCode muere</td>
+<td>Abrir archivos con <code>notepad</code> o <code>type</code> desde terminal</td>
+</tr>
+<tr class="even">
+<td>Proyector muere</td>
+<td><code>clase_contenido.pdf</code> en laptop, alumnos ven su pantalla</td>
+</tr>
+<tr class="odd">
+<td>Venv roto en alguna laptop</td>
+<td><code>pip install openai-agents pydantic python-dotenv rich tabulate</code> en global, seguir</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 id="qué-les-queda-a-los-alumnos">Qué les queda a los alumnos</h1>
+<ol type="1">
+<li>Repo funcional en sus máquinas</li>
+<li><code>.env</code> con su propia API key</li>
+<li>Conocimiento para modificar el agente (agregar tools, cambiar niveles)</li>
+<li>PDFs: <code>clase_contenido.pdf</code>, 3 diagramas</li>
+<li>Contacto: jaaguilar@acity.com.pe · neuracode.dev</li>
+</ol>
+<hr />
+<p><strong>Dictada por Jack Aguilar — CEO Neuracode · Para SDC Learning</strong></p>
+</body>
+</html>
