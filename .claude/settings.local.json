@@ -7,7 +7,12 @@
       "Bash(python -c \"import ast; ast.parse\\(open\\('src/agent.py', encoding='utf-8'\\).read\\(\\)\\); ast.parse\\(open\\('src/tools.py', encoding='utf-8'\\).read\\(\\)\\); ast.parse\\(open\\('src/schemas.py', encoding='utf-8'\\).read\\(\\)\\); ast.parse\\(open\\('cli.py', encoding='utf-8'\\).read\\(\\)\\); print\\('OK: sintaxis válida'\\)\")",
       "WebFetch(domain:www.neuracode.dev)",
       "WebSearch",
-      "Bash(git filter-branch *)"
+      "Bash(git filter-branch *)",
+      "Bash(git check-ignore *)",
+      "Bash(python -c \"import ast; [ast.parse\\(open\\(f, encoding='utf-8'\\).read\\(\\)\\) for f in ['tests/conftest.py','tests/test_schemas.py','tests/test_tools.py','tests/test_finops.py','tests/test_agent_integration.py']]; print\\('OK: tests sintácticamente válidos'\\)\")",
+      "Bash(pip install *)",
+      "Bash(python -m pytest tests/test_schemas.py tests/test_finops.py tests/test_tools.py -v)",
+      "Bash(python -m pytest tests/test_agent_integration.py --collect-only)"
     ]
   },
   "disabledMcpjsonServers": [

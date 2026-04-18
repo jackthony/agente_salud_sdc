@@ -106,6 +106,16 @@ python cli.py --casos
 jupyter notebook demo.ipynb
 ```
 
+### Tests
+
+```bash
+# Unitarios (rápidos, sin gastar tokens)
+pytest
+
+# Integración (llama al LLM real, requiere OPENAI_API_KEY)
+pytest -m integration
+```
+
 ---
 
 ## 6. Estructura

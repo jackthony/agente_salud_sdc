@@ -2,6 +2,9 @@
 
 En producción, estas tools llamarían APIs reales (MINSA, HIS hospitalario, Google Places).
 Para la clase usamos datos sintéticos pero realistas.
+
+Las funciones se definen como funciones Python puras (testables directamente)
+y se envuelven con `function_tool` al final para exponerlas al agente.
 """
 from __future__ import annotations
 
@@ -63,7 +66,6 @@ HOSPITALES_DB: list[Hospital] = [
 ]
 
 
-@function_tool
 def consultar_protocolo_minsa(condicion: str) -> str:
     """Busca protocolo clínico oficial MINSA Perú para una condición.
 
@@ -79,7 +81,6 @@ def consultar_protocolo_minsa(condicion: str) -> str:
     return f"{p.titulo}\n{pasos}\nFuente: {p.fuente}"
 
 
-@function_tool
 def buscar_hospital_cercano(distrito: str, urgencia: str) -> str:
     """Busca hospital/clínica más cercana según distrito y urgencia.
 
@@ -104,7 +105,6 @@ def buscar_hospital_cercano(distrito: str, urgencia: str) -> str:
     )
 
 
-@function_tool
 def registrar_caso_auditoria(nivel: str, razon: str) -> str:
     """Registra el caso en el log de auditoría (requerido por compliance).
 
@@ -119,7 +119,7 @@ def registrar_caso_auditoria(nivel: str, razon: str) -> str:
 
 
 TRIAGE_TOOLS = [
-    consultar_protocolo_minsa,
-    buscar_hospital_cercano,
-    registrar_caso_auditoria,
+    function_tool(consultar_protocolo_minsa),
+    function_tool(buscar_hospital_cercano),
+    function_tool(registrar_caso_auditoria),
 ]
