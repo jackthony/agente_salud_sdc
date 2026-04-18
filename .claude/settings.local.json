@@ -1,0 +1,11 @@
+{
+  "disabledMcpjsonServers": [
+    "Vercel",
+    "Vercel Next Dev Tools"
+  ],
+  "permissions": {
+    "allow": [
+      "Bash(git init *)"
+    ]
+  }
+}

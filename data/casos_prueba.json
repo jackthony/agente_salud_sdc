@@ -1,0 +1,37 @@
+[
+  {
+    "id": "C001",
+    "descripcion": "Hombre 55 años, dolor fuerte en el pecho desde hace 20 minutos, sudoración fría, dolor irradia al brazo izquierdo",
+    "esperado": "ROJO"
+  },
+  {
+    "id": "C002",
+    "descripcion": "Mujer 30 años, estornudos, congestión nasal, dolor de garganta leve, temperatura 37.5°C desde hace 2 días",
+    "esperado": "VERDE"
+  },
+  {
+    "id": "C003",
+    "descripcion": "Niño 8 años, corte profundo en la mano con cuchillo, sangrado moderado que no se detiene con presión, hace 10 minutos",
+    "esperado": "AMARILLO"
+  },
+  {
+    "id": "C004",
+    "descripcion": "Mujer 28 años embarazada 30 semanas, sangrado vaginal abundante y dolor abdominal intenso",
+    "esperado": "ROJO"
+  },
+  {
+    "id": "C005",
+    "descripcion": "Hombre 40 años, dolor de cabeza leve desde la mañana, durmió poco, sin otros síntomas",
+    "esperado": "VERDE"
+  },
+  {
+    "id": "C006",
+    "descripcion": "Adulto mayor 70 años, dificultad para hablar hace 15 minutos, debilidad lado derecho del cuerpo",
+    "esperado": "ROJO"
+  },
+  {
+    "id": "C007",
+    "descripcion": "Mujer 35 años, fiebre 39°C, tos con flema verde, dolor al respirar desde hace 3 días, no mejora con paracetamol",
+    "esperado": "AMARILLO"
+  }
+]
