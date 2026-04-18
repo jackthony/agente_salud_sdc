@@ -142,8 +142,21 @@ agente_salud_sdc/
 
 ---
 
-## 8. Licencia y Disclaimer
+## 8. Autor y Contacto
 
-- Autor: Tony Aguilar (CEO Neuracode) — jaaguilar@acity.com.pe
-- Licencia: MIT
-- **Disclaimer:** Material educativo. No usar en producción sin validación médica y aprobación regulatoria.
+**Jack Aguilar** — CEO Neuracode
+
+- 🌐 Web: [neuracode.dev](https://www.neuracode.dev/)
+- 💼 LinkedIn: [linkedin.com/in/jackaguilarc](https://www.linkedin.com/in/jackaguilarc/)
+- 🎵 TikTok: [@jack.de.neura.code](https://www.tiktok.com/@jack.de.neura.code)
+- 📸 Instagram: [@neuracode.dev](https://www.instagram.com/neuracode.dev/)
+- 📘 Facebook: [facebook.com/neuracode](https://www.facebook.com/neuracode)
+- 💬 WhatsApp: [+51 982 859 073](https://wa.me/51982859073)
+- 📧 Email: jaaguilar@acity.com.pe
+
+---
+
+## 9. Licencia y Disclaimer
+
+- **Licencia:** MIT
+- **Disclaimer:** Material educativo. No usar en producción sin validación médica y aprobación regulatoria (DIGEMID / MINSA).

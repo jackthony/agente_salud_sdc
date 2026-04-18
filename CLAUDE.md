@@ -119,6 +119,12 @@ Extensiones válidas (en orden de prioridad):
 
 ## Contacto
 
-- Owner: Tony Aguilar — jaaguilar@acity.com.pe
-- Empresa: Neuracode
-- Repo: https://github.com/jackthony/agente_salud_sdc
+- **Owner:** Jack Aguilar — CEO Neuracode
+- **Email:** jaaguilar@acity.com.pe
+- **Web:** https://www.neuracode.dev/
+- **LinkedIn:** https://www.linkedin.com/in/jackaguilarc/
+- **TikTok:** https://www.tiktok.com/@jack.de.neura.code
+- **Instagram:** https://www.instagram.com/neuracode.dev/
+- **Facebook:** https://www.facebook.com/neuracode
+- **WhatsApp:** https://wa.me/51982859073
+- **Repo:** https://github.com/jackthony/agente_salud_sdc

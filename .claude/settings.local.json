@@ -4,7 +4,10 @@
       "Bash(git init *)",
       "Bash(gh auth *)",
       "Bash(gh repo *)",
-      "Bash(python -c \"import ast; ast.parse\\(open\\('src/agent.py', encoding='utf-8'\\).read\\(\\)\\); ast.parse\\(open\\('src/tools.py', encoding='utf-8'\\).read\\(\\)\\); ast.parse\\(open\\('src/schemas.py', encoding='utf-8'\\).read\\(\\)\\); ast.parse\\(open\\('cli.py', encoding='utf-8'\\).read\\(\\)\\); print\\('OK: sintaxis válida'\\)\")"
+      "Bash(python -c \"import ast; ast.parse\\(open\\('src/agent.py', encoding='utf-8'\\).read\\(\\)\\); ast.parse\\(open\\('src/tools.py', encoding='utf-8'\\).read\\(\\)\\); ast.parse\\(open\\('src/schemas.py', encoding='utf-8'\\).read\\(\\)\\); ast.parse\\(open\\('cli.py', encoding='utf-8'\\).read\\(\\)\\); print\\('OK: sintaxis válida'\\)\")",
+      "WebFetch(domain:www.neuracode.dev)",
+      "WebSearch",
+      "Bash(git filter-branch *)"
     ]
   },
   "disabledMcpjsonServers": [
