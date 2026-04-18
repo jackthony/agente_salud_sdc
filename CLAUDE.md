@@ -29,7 +29,7 @@ Agente de IA (no solo LLM wrapper) que hace **triage de síntomas**: clasifica e
 - Tracing automático del SDK → ver tokens y costo
 - Presupuesto: < $0.001 por triage
 
-### 3. Musk Principles
+### 3. Minimalismo
 - 1 agente = 1 responsabilidad (triage, NO diagnóstico)
 - Eliminar antes de agregar (no RAG, no fine-tuning, no frontend)
 - Código mínimo: `src/agent.py` + `src/tools.py` + `src/schemas.py`

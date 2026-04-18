@@ -1,7 +1,7 @@
 # Agente IA Salud — Triage de Síntomas (Clase 90min)
 
 > **Agente real** con OpenAI Agents SDK. Tool use + guardrails + structured output.
-> **Enfoque:** Musk + FinOps + Zero-Hallucination.
+> **Enfoque:** Minimalismo + FinOps + Zero-Hallucination.
 
 ---
 
@@ -140,7 +140,7 @@ agente_salud_sdc/
 
 ---
 
-## 7. Musk Principles aplicados
+## 7. Principios de Diseño
 
 | Principio | Cómo |
 |-----------|------|
@@ -148,7 +148,7 @@ agente_salud_sdc/
 | **Eliminar** | 3 archivos `.py`, 1 notebook demo. Cero sobra. |
 | **Simplificar** | 1 agente principal + 1 guardrail + 3 tools. |
 | **Acelerar** | 90 min clase → agente completo + métricas. |
-| **Automatizar** | Solo después de validar con médicos reales. |
+| **Automatizar al final** | Solo después de validar con médicos reales. |
 
 ---
 

@@ -9,7 +9,7 @@
 | 20-35 | Arquitectura | Diagrama: Input → Prompt → LLM → Schema → Guardrails |
 | 35-75 | Código en vivo | Notebook cell por cell |
 | 75-85 | Demo libre | Alumnos dictan casos, el agente responde |
-| 85-90 | Cierre | Principios Musk + preguntas |
+| 85-90 | Cierre | Principios de diseño + preguntas |
 
 ## Slides (10 máximo)
 
@@ -27,7 +27,7 @@
 7. **FinOps**: tabla costo gpt-4o-mini vs gpt-4o vs humano
 8. **Zero-Hallucination**: 7 técnicas (structured output, disclaimer, etc.)
 9. **Demo en vivo** (ir al notebook)
-10. **Cierre Musk**: 5 principios aplicados
+10. **Cierre**: 5 principios aplicados
 
 ## Frases clave para cada bloque
 
@@ -43,7 +43,7 @@
 
 ### Arquitectura (min 20-35)
 - "No es magia. Es prompt + schema + guardrails. Fin."
-- "NO usamos RAG. NO fine-tuning. NO vector DB. Musk primero: eliminar."
+- "NO usamos RAG. NO fine-tuning. NO vector DB. Primero: eliminar."
 - "Structured output = el LLM NO PUEDE alucinar el formato."
 
 ### Código (min 35-75)

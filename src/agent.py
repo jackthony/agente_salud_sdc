@@ -1,6 +1,6 @@
 """Agente de Triage — OpenAI Agents SDK.
 
-Musk principles:
+Principios de diseño:
 - 1 agente, 1 responsabilidad (triage, no diagnóstico)
 - Tools simples y explícitas
 - Guardrail de entrada: rechazar peticiones de diagnóstico/receta
@@ -124,8 +124,14 @@ async def run_triage(sintomas: str) -> TriageResponse:
         "total_tokens": run_result.context_wrapper.usage.total_tokens,
         "requests": run_result.context_wrapper.usage.requests,
     }
+    # Zero-hallucination: forzar el disclaimer oficial después del LLM
+    final: TriageResult = run_result.final_output
+    disclaimer_oficial = TriageResult.model_fields["disclaimer"].default
+    if final.disclaimer != disclaimer_oficial:
+        final = final.model_copy(update={"disclaimer": disclaimer_oficial})
+
     return TriageResponse(
-        result=run_result.final_output,
+        result=final,
         bloqueado_por_guardrail=False,
         motivo_bloqueo=None,
         total_usage=usage,
