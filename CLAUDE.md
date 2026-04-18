@@ -1,118 +1,124 @@
 # CLAUDE.md — Instrucciones para Asistentes IA
 
-> Este archivo es leído por Claude Code, ChatGPT, Codex, Cursor, y cualquier asistente IA que trabaje en este repo.
+> Leído por Claude Code, ChatGPT, Codex, Cursor, y cualquier asistente IA que trabaje en este repo.
 
-## Propósito del Proyecto
+## Propósito
 
-Agente de IA que hace **triage de síntomas** (clasificación ROJO/AMARILLO/VERDE + recomendación).
-Es material educativo para una clase de 90 minutos sobre agentes IA en salud.
+Agente de IA (no solo LLM wrapper) que hace **triage de síntomas**: clasifica en ROJO/AMARILLO/VERDE, recomienda acción, usa tools para consultar protocolos MINSA y sugerir hospital. Material educativo para clase de 90 min.
+
+## Stack
+
+- **OpenAI Agents SDK** (`openai-agents`, oficial marzo 2025)
+- **Python 3.10+**
+- **Pydantic 2** para structured output
+- **Rich** para CLI bonito
+- **Jupyter** solo para demo final
 
 ## Reglas Inviolables
 
 ### 1. Zero-Hallucination (CRÍTICO)
-- **NUNCA** el agente diagnostica enfermedades
-- **NUNCA** receta medicamentos ni dosis
-- **SIEMPRE** usar structured output (JSON forzado)
-- **SIEMPRE** incluir disclaimer: "No es diagnóstico médico"
-- **SIEMPRE** escalar a humano si confianza < 0.85
+- El agente NUNCA diagnostica enfermedades
+- El agente NUNCA receta medicamentos ni dosis
+- Structured output obligatorio (`TriageResult` Pydantic)
+- Safety guardrail de entrada que rechaza pedidos fuera de alcance
+- Escalamiento humano automático si `confianza < 0.85`
+- Disclaimer en cada respuesta
 
 ### 2. FinOps (OBLIGATORIO)
-- Modelo default: **gpt-4o-mini** ($0.15/$0.60 por 1M tokens)
-- `max_tokens=300` máximo
-- `temperature=0.1` para consistencia
-- Loguear tokens consumidos en cada llamada
-- Tener fallback local: **Ollama + Llama 3.2 3B**
+- Modelo default: **`gpt-4o-mini`** (NO usar gpt-4o salvo razón explícita)
+- Tracing automático del SDK → ver tokens y costo
+- Presupuesto: < $0.001 por triage
 
 ### 3. Musk Principles
-- Simplificar brutalmente: 1 prompt, 1 modelo, 3 outputs
-- Eliminar antes de agregar
-- No over-engineer: sin RAG, sin fine-tuning, sin frontend
-- Código en UN notebook, no 20 archivos
+- 1 agente = 1 responsabilidad (triage, NO diagnóstico)
+- Eliminar antes de agregar (no RAG, no fine-tuning, no frontend)
+- Código mínimo: `src/agent.py` + `src/tools.py` + `src/schemas.py`
+- CLI directo, notebook solo para métricas
 
 ### 4. Estilo de Código
-- Python 3.10+
-- Type hints obligatorios
-- Immutabilidad: no mutar dicts, retornar copias
-- Errores con `raise`, no `except: pass`
-- Imports: stdlib → third-party → local
+- Python 3.10+ (`|` para unions, `list[X]` en vez de `List[X]`)
+- Type hints obligatorios en todas las funciones
+- Immutabilidad: `@dataclass(frozen=True)`, retornar copias
+- Errores con `raise`, nunca `except: pass`
+- Imports: stdlib → third-party → local (separados por línea vacía)
 
-## Stack
+## Estructura del Código
 
-| Componente | Tecnología | Por qué |
-|-----------|------------|---------|
-| LLM principal | OpenAI gpt-4o-mini | Costo/calidad óptimo |
-| LLM local (fallback) | Ollama + Llama 3.2 3B | $0, privacidad |
-| Entorno | Jupyter Notebook | Demo en vivo |
-| Validación | Pydantic | Structured output |
-| Env vars | python-dotenv | Gestión de secrets |
+```
+src/
+├── schemas.py   # Pydantic: TriageResult, Hospital, Protocolo (NO LLM)
+├── tools.py     # @function_tool decorados (protocolos, hospitales, auditoría)
+└── agent.py     # Agente + safety guardrail + run_triage() async
+cli.py           # Entrada: interactivo o --casos
+demo.ipynb       # Métricas finops para clase
+```
 
-## Comandos Clave
+## Comandos
 
 ```bash
 # Setup
 pip install -r requirements.txt
-cp .env.example .env
+cp .env.example .env  # editar OPENAI_API_KEY
 
-# Correr notebook
-jupyter notebook notebooks/triage_agent.ipynb
-
-# Correr con Ollama (sin costo)
-ollama pull llama3.2:3b
-ollama serve
+# Correr
+python cli.py              # modo interactivo
+python cli.py --casos      # suite de pruebas
+jupyter notebook demo.ipynb
 ```
 
 ## Variables de Entorno
 
 ```bash
-OPENAI_API_KEY=sk-...       # Requerido si USE_LOCAL=False
-USE_LOCAL=False              # True para Ollama
-OLLAMA_HOST=http://localhost:11434  # Default
+OPENAI_API_KEY=sk-...        # requerido
+OPENAI_MODEL=gpt-4o-mini     # default FinOps, no cambiar sin razón
 ```
 
-## Estructura del Código (un solo notebook)
+## Conceptos del OpenAI Agents SDK
 
-```
-notebooks/triage_agent.ipynb
-├── 1. Setup & Imports
-├── 2. Config (modelo, temperatura, max_tokens)
-├── 3. Schema Pydantic (TriageResult)
-├── 4. System Prompt (Manchester Triage)
-├── 5. Few-shot Examples
-├── 6. Función triage_paciente()
-├── 7. Guardrails (validación + escalamiento)
-├── 8. Demo: 3 casos (dolor pecho, gripe, corte)
-├── 9. Métricas (costo, latencia, tokens)
-└── 10. Fallback Ollama (bloque opcional)
-```
+| Concepto | Rol |
+|----------|-----|
+| `Agent` | Configuración: instructions + tools + output_type + guardrails |
+| `@function_tool` | Decorator que expone funciones Python como tools al LLM |
+| `Runner.run()` | Ejecuta el loop del agente (percibir → decidir → act → observar) |
+| `InputGuardrail` | Valida input ANTES de llamar al agente principal |
+| `output_type` | Fuerza structured output con Pydantic |
+| `ContextWrapper.usage` | Tokens + requests para FinOps |
 
 ## Qué NO hacer
 
-- NO usar gpt-4o por defecto (16x más caro que mini)
-- NO agregar RAG, fine-tuning, ni vector DB (sobre-ingeniería)
-- NO crear múltiples archivos .py (queremos 1 notebook)
-- NO poner PII real en los casos de prueba (usar sintéticos)
-- NO hacer el agente diagnostique (solo triage)
+- NO usar gpt-4o por defecto (16x más caro)
+- NO agregar LangChain, CrewAI, LlamaIndex (conflicto con SDK oficial)
+- NO agregar RAG/vector DB (sobre-ingeniería)
+- NO remover el safety guardrail
+- NO remover el disclaimer
+- NO poner PII real en casos de prueba
+- NO hacer que el agente diagnostique enfermedades específicas
+- NO dividir en más archivos sin razón (keep it simple)
 
-## Cómo Extender
+## Para ChatGPT / Codex específicamente
 
-Si el usuario pide features extras:
-1. **Preguntar primero**: ¿realmente lo necesitamos para la clase?
-2. **Eliminar antes de agregar**: ¿qué podemos quitar?
-3. **Simplificar**: ¿hay forma más simple?
-4. Recién ahí implementar
+Si eres ChatGPT o Codex:
+1. Lee este archivo + README.md primero
+2. Usa el SDK oficial `openai-agents`, no reinventes con LangChain
+3. Respeta FinOps: `gpt-4o-mini` salvo razón explícita
+4. Cualquier cambio al agente debe mantener los guardrails
+5. Si dudas, pregunta en vez de alucinar código
 
-## Para ChatGPT/Codex específicamente
+## Cómo Extender (si se pide)
 
-Si eres ChatGPT o Codex y vas a trabajar en este repo:
-1. Lee este archivo completo primero
-2. Lee el README.md para contexto de negocio
-3. No cambies el stack sin consultar
-4. Respeta FinOps: usa gpt-4o-mini salvo que haya razón explícita
-5. Toda respuesta debe incluir disclaimer médico
-6. Si dudas, pregunta en vez de alucinar
+Antes de implementar, preguntar:
+1. ¿Realmente lo necesitamos para la clase / caso de negocio?
+2. ¿Qué podemos eliminar primero?
+3. ¿Hay forma más simple?
+
+Extensiones válidas (en orden de prioridad):
+- Más tools (historial paciente, teleconsulta, farmacia cercana)
+- Handoff a agente especialista (pediatría, cardiología) — nativo en el SDK
+- Memoria persistente (SQLite) para aprendizaje por casos
+- Streaming de respuestas
 
 ## Contacto
 
 - Owner: Tony Aguilar — jaaguilar@acity.com.pe
 - Empresa: Neuracode
-- Contexto: Material didáctico, clase 90min
+- Repo: https://github.com/jackthony/agente_salud_sdc

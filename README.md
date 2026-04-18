@@ -1,6 +1,6 @@
 # Agente IA Salud — Triage de Síntomas (Clase 90min)
 
-> **Caso:** Agente que clasifica síntomas en ROJO/AMARILLO/VERDE y recomienda acción.
+> **Agente real** con OpenAI Agents SDK. Tool use + guardrails + structured output.
 > **Enfoque:** Musk + FinOps + Zero-Hallucination.
 
 ---
@@ -9,155 +9,141 @@
 
 ### Problema real (first principles)
 - Emergencias saturadas: 40-60% de visitas son NO-emergencias (OMS)
-- Triage manual = enfermera cuello de botella (costo S/50/hora)
+- Triage manual = enfermera cuello de botella (~S/50/hora)
 - Pacientes esperan 4-8h por casos que pudieron ser teleconsulta
 
 ### Dónde ya se aplica (referencias reales)
 | Empresa | País | Valor |
 |---------|------|-------|
-| **Ada Health** | Alemania | 13M usuarios, levantó $90M Serie B |
-| **Babylon Health** | UK | NHS contract, IPO $4.2B (2021) |
-| **K Health** | USA/Israel | $8.9M ARR, partnership Mayo Clinic |
-| **Buoy Health** | USA | Harvard Med spin-off, partnerships con CVS |
-| **Infermedica** | Polonia | API B2B, usado por Allianz, PZU |
+| **Ada Health** | Alemania | 13M usuarios, Serie B $90M |
+| **Babylon Health** | UK | Contrato NHS, IPO $4.2B (2021) |
+| **K Health** | USA/Israel | Partnership Mayo Clinic |
+| **Buoy Health** | USA | Spin-off Harvard Med |
+| **Infermedica** | Polonia | API B2B, Allianz, PZU |
 
-### Por qué es bueno hacerlo
-- Problema **masivo y medible** (tiempo de espera, costo por paciente)
-- Solución **ya validada** por mercado ($2B+ invertido en el sector)
-- Tecnología **commodity** (LLMs) → barrera de entrada baja
-- Regulación clara (no diagnóstico, solo triage → menos fricción FDA/DIGEMID)
+### Modelo de negocio
+1. SaaS B2B clínicas/EPS: S/2,000-10,000/mes por sede
+2. API pay-per-call: $0.05/triage (margen 99.7%)
+3. White-label aseguradoras (Pacífico, Rimac)
+4. Comisión derivación farmacia (Inkafarma, MiFarma)
 
----
-
-## 2. Modelo de Negocio
-
-### Cómo ganar dinero
-1. **SaaS B2B a clínicas/EPS**: S/2,000-10,000/mes por sede
-2. **API pay-per-call**: $0.05/triage (margen 300x sobre costo LLM)
-3. **White-label** a aseguradoras (Pacífico, Rimac, Mapfre)
-4. **Integración farmacias** (Inkafarma, MiFarma) → comisión derivación
-5. **Data insights** agregados a MINSA/EsSalud (no PII)
-
-### Demanda (Perú + LatAm)
-- Perú: 33M habitantes, 1 médico/800 hab (OMS recomienda 1/500)
-- LatAm digital health: **$13.8B en 2024**, CAGR 19.8% (Statista)
-- Post-COVID: telemedicina creció 38x en Perú (SUSALUD 2023)
-- Clínicas privadas buscan diferenciación digital
-
-### Unit Economics (del caso base)
-- Costo por triage: **$0.00016** (gpt-4o-mini)
-- Precio sugerido: **$0.05/call** o **S/1.50/triage**
-- Margen bruto: **99.7%**
+### Unit Economics
+- Costo por triage: **~$0.0003** (gpt-4o-mini, incluye tool calls)
+- Precio sugerido: **$0.05**
 - Break-even: ~200 triages/mes por cliente
 
 ---
 
-## 3. Velocidad de Implementación (Musk-mode)
+## 2. Qué es un Agente (vs simple LLM)
 
-| Fase | Tiempo | Qué sale |
-|------|--------|----------|
-| MVP demo | **90 min** (esta clase) | Notebook funcional |
-| Piloto 1 clínica | **2 semanas** | API + WhatsApp bot |
-| Producción SaaS | **2 meses** | Dashboard + multi-tenant |
-| Escalamiento | **6 meses** | 10+ clínicas, integración HIS |
+| Capacidad | LLM wrapper | **Agente real (este repo)** |
+|-----------|------------|------------------------------|
+| Clasificar | sí | sí |
+| Tool use (APIs, DB) | no | **sí** (protocolos MINSA, hospitales, auditoría) |
+| Loop autónomo de decisión | no | **sí** (el agente decide qué tools llamar) |
+| Guardrails | manual | **nativos** (rechaza diagnóstico/recetas) |
+| Structured output | parcial | **garantizado** (Pydantic schema) |
 
-### Algoritmo Musk aplicado
-1. **Cuestionar**: ¿necesitamos RAG? NO. ¿Fine-tuning? NO. ¿UI compleja? NO.
-2. **Eliminar**: sin frontend, sin DB, sin auth (es clase)
-3. **Simplificar**: 1 prompt + 1 modelo + 3 outputs
-4. **Acelerar**: Jupyter → demo en vivo → feedback
-5. **Automatizar**: solo después de validar 100 casos manuales
+Stack: **OpenAI Agents SDK** (oficial, marzo 2025) + Pydantic + Rich.
+
+---
+
+## 3. Zero-Hallucination
+
+| Técnica | Cómo |
+|---------|------|
+| Structured output | Pydantic `TriageResult` obligatorio |
+| Protocolos oficiales | Tool `consultar_protocolo_minsa` |
+| Guardrail de entrada | Safety agent rechaza diagnóstico/recetas |
+| Escalamiento humano | `requiere_medico=True` si confianza < 0.85 |
+| Disclaimer | incluido en cada respuesta |
+| Auditoría | Tool `registrar_caso_auditoria` obligatoria |
+| Lista blanca de acciones | solo 5 acciones posibles (enum) |
 
 ---
 
 ## 4. FinOps
 
-### Modelo elegido: **gpt-4o-mini**
-| Modelo | Input/1M | Output/1M | Por triage |
-|--------|----------|-----------|------------|
-| gpt-4o-mini | $0.15 | $0.60 | **$0.00016** |
-| gpt-4o | $2.50 | $10.00 | $0.0027 (16x más) |
-| o3-mini | $1.10 | $4.40 | $0.0012 |
+### Modelo default: **gpt-4o-mini**
+| Modelo | Input/1M | Output/1M |
+|--------|----------|-----------|
+| gpt-4o-mini | $0.15 | $0.60 |
+| gpt-4o | $2.50 | $10.00 (16x) |
 
-### Fallback local (sin costo)
-- **Ollama + Llama 3.2 3B** → $0 por triage
-- Usar si: privacidad estricta, offline, o budget $0
-- Ver sección `Modelo Local` en notebook
-
-### Guardrails de costo
-- `max_tokens=300` (respuesta corta)
-- `temperature=0.1` (consistencia)
-- Timeout 10s
-- Contador de tokens por llamada
+Guardrails: `max_tokens=300`, `temperature=0.1`, timeout 10s.
 
 ---
 
-## 5. Zero-Hallucination
-
-### Técnicas aplicadas
-1. **Structured Output** (JSON Schema forzado) — no puede inventar formato
-2. **Few-shot prompting** — 3 ejemplos calibrados
-3. **Protocolo Manchester Triage** en system prompt
-4. **Disclaimer obligatorio**: "No es diagnóstico médico"
-5. **Escalamiento humano** si confianza < 0.85
-6. **Lista blanca de acciones** — solo puede recomendar de un set fijo
-7. **Auditoría**: cada decisión se loguea con timestamp + prompt + respuesta
-
-### Lo que el agente NUNCA hace
-- Diagnosticar enfermedades
-- Recetar medicamentos
-- Dar dosis
-- Reemplazar consulta médica
-
----
-
-## 6. Setup (para ChatGPT/Codex/Claude/cualquiera)
+## 5. Setup (ChatGPT / Codex / Claude / cualquiera)
 
 ### Requisitos
 - Python 3.10+
-- Jupyter Notebook
-- API key OpenAI (opcional, puede correr con Ollama local)
+- API key OpenAI
 
 ### Instalación
 ```bash
-git clone <repo-url>
+git clone https://github.com/jackthony/agente_salud_sdc
 cd agente_salud_sdc
 pip install -r requirements.txt
 cp .env.example .env
 # Editar .env con tu OPENAI_API_KEY
-jupyter notebook notebooks/triage_agent.ipynb
 ```
 
-### Correr sin OpenAI (100% local)
+### Uso
+
+**Modo interactivo (CLI):**
 ```bash
-# Instalar Ollama: https://ollama.com
-ollama pull llama3.2:3b
-# En el notebook, cambiar flag USE_LOCAL=True
+python cli.py
+```
+
+**Suite de pruebas:**
+```bash
+python cli.py --casos
+```
+
+**Notebook demo (para clase):**
+```bash
+jupyter notebook demo.ipynb
 ```
 
 ---
 
-## 7. Estructura del Repo
+## 6. Estructura
 
 ```
 agente_salud_sdc/
-├── README.md              # Este archivo (caso de negocio + setup)
+├── README.md              # Caso de negocio + setup
 ├── CLAUDE.md              # Instrucciones para asistentes IA
-├── requirements.txt       # Dependencias Python
-├── .env.example           # Template de variables
-├── notebooks/
-│   └── triage_agent.ipynb # Código principal (clase)
+├── requirements.txt
+├── .env.example
+├── cli.py                 # CLI interactivo + suite de pruebas
+├── demo.ipynb             # Notebook demo para clase
+├── src/
+│   ├── schemas.py         # Pydantic: TriageResult, Hospital, Protocolo
+│   ├── tools.py           # Tools: protocolo MINSA, hospital, auditoría
+│   └── agent.py           # Agente principal + safety guardrail
 ├── data/
-│   └── casos_prueba.json  # Casos de test
+│   └── casos_prueba.json  # 7 casos de test (ROJO/AMARILLO/VERDE)
 └── slides/
-    └── guion.md           # Guión de la clase (90 min)
+    └── guion.md           # Guión de clase 90min
 ```
 
 ---
 
-## 8. Créditos y Licencia
+## 7. Musk Principles aplicados
 
-- Autor: Tony Aguilar (CEO Neuracode)
-- Clase: Agentes IA para Salud
+| Principio | Cómo |
+|-----------|------|
+| **Cuestionar** | ¿RAG? NO. ¿Fine-tuning? NO. ¿Frontend? NO. |
+| **Eliminar** | 3 archivos `.py`, 1 notebook demo. Cero sobra. |
+| **Simplificar** | 1 agente principal + 1 guardrail + 3 tools. |
+| **Acelerar** | 90 min clase → agente completo + métricas. |
+| **Automatizar** | Solo después de validar con médicos reales. |
+
+---
+
+## 8. Licencia y Disclaimer
+
+- Autor: Tony Aguilar (CEO Neuracode) — jaaguilar@acity.com.pe
 - Licencia: MIT
-- Disclaimer: Material educativo. No usar en producción sin validación médica.
+- **Disclaimer:** Material educativo. No usar en producción sin validación médica y aprobación regulatoria.
